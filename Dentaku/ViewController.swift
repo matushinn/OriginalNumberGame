@@ -261,7 +261,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showQuestion()
-        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UIMenuController.update), userInfo: nil, repeats: true)
+//        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UIMenuController.update), userInfo: nil, repeats: true)
        
         
     }
