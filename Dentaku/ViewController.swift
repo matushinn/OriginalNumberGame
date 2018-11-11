@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var maruImageView: UIImageView!
     
     @IBOutlet weak var batsuImageView: UIImageView!
-    @IBOutlet weak var startLabel: UIImageView!
     
     @IBOutlet weak var startButtonLabel: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
@@ -40,9 +39,13 @@ class ViewController: UIViewController {
     var answer:Int = 0
     
     var timer:Timer!
+//  timer保存する配列
+    var timerArray = [Double]()
     var count:Double = 0.0
     
+    @IBOutlet weak var noteTextViewLabel: UITextView!
     
+    @IBOutlet weak var noteViewLabel: UIView!
     func vibrate() {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
@@ -75,6 +78,7 @@ class ViewController: UIViewController {
             
 //            }
             
+            
         }else{
             //不正解
             vibrate()
@@ -85,6 +89,20 @@ class ViewController: UIViewController {
                 self.batsuImageView.removeFromSuperview()
             })*/
             
+            
+        }
+        if questionNum == 2{
+            timer.invalidate()
+            //textFieldで記入されたテキストを入れる
+            timerArray.append(Double(timerLabel.text!)!)
+            
+            //キー値"array"で配列の保存
+            UserDefaults.standard.set(timerArray, forKey: "lastScore")
+            
+           
+//            print(timerArray)
+
+            self.performSegue(withIdentifier: "toThird", sender: nil)
         }
         answer = 0
         answerLabel.text = "0"
@@ -265,10 +283,20 @@ class ViewController: UIViewController {
        
         
     }
+    
+
+    @IBAction func startButton(_ sender: Any) {
+        noteViewLabel.alpha=0.0
+        noteTextViewLabel.alpha=0.0
+        startButtonLabel.isHidden = true
+       timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
+        
+    }
+    
 //    timer
-    func update(){
-        count = count + 0.01
-        timerLabel.text = String(count)
+    @objc func update(){
+        count = count + 0.1
+        timerLabel.text = String(format: "%.1f", count)
         
     }
     
