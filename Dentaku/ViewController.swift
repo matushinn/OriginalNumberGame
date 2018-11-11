@@ -72,12 +72,7 @@ class ViewController: UIViewController {
             })*/
             showQuestion()
             questionNum += 1
-//            if questionNum == 2{
-//                let ResultViewController = storyboard!.instantiateViewController(withIdentifier: "nextView")
-//                present(ResultViewController, animated: true, completion: nil)
-            
-//            }
-            
+
             
         }else{
             //不正解
@@ -91,7 +86,7 @@ class ViewController: UIViewController {
             
             
         }
-        if questionNum == 2{
+        if questionNum == 10{
             timer.invalidate()
             //textFieldで記入されたテキストを入れる
             timerArray.append(Double(timerLabel.text!)!)
@@ -101,11 +96,16 @@ class ViewController: UIViewController {
             
            
 //            print(timerArray)
-
             self.performSegue(withIdentifier: "toThird", sender: nil)
+            
         }
         answer = 0
         answerLabel.text = "0"
+    }
+  //rankを計算する
+    func rankQuestion(){
+        
+        
     }
     
     
