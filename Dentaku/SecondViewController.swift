@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FirstViewController.swift
 //  Dentaku
 //
 //  Created by 大江祥太郎 on 2018/10/28.
@@ -9,8 +9,8 @@
 import UIKit
 import AudioToolbox
 
-class ViewController: UIViewController {
-   
+class SecondViewController: UIViewController {
+    
     @IBOutlet weak var leftLabel: UILabel!
     
     
@@ -21,15 +21,12 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var answerLabel: UILabel!
     
-    @IBOutlet weak var maruImageView: UIImageView!
-    
-    @IBOutlet weak var batsuImageView: UIImageView!
     
     @IBOutlet weak var startButtonLabel: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
     var calc:[String] = ["➕","➖","✖️"]
     
-    var questionNum :Int = 0
+    var questionNum :Int = 1
     
     var result:Int = 0
     
@@ -39,22 +36,28 @@ class ViewController: UIViewController {
     var answer:Int = 0
     
     var timer:Timer!
-//  timer保存する配列
-    var timerArray = [Double]()
+    //  timer保存する配列
+    var secondTimerArray = [Double]()
     var count:Double = 0.0
     
     @IBOutlet weak var noteTextViewLabel: UITextView!
     
     @IBOutlet weak var noteViewLabel: UIView!
+    
+    @IBOutlet weak var questionNumLabel: UILabel!
     func vibrate() {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
-//    問題を出す関数
+    
+    
+    //    問題を出す関数
     func showQuestion(){
-        leftNumber=Int(arc4random_uniform(10))
+        leftNumber=Int(arc4random_uniform(100))
         rightNumber=Int(arc4random_uniform(10))
+        
         leftLabel.text = String(leftNumber)
         rightLabel.text = String(rightNumber)
+        
         
         let calculation = Int( arc4random_uniform(UInt32(calc.count)) )
         calcLabel.text = calc[calculation]
@@ -65,47 +68,53 @@ class ViewController: UIViewController {
             //正解
             vibrate()
             /*
-            UIView.animate(withDuration: 1, animations: {
-                self.maruImageView.alpha = 0
-            }, completion: { finished in
-                self.maruImageView.removeFromSuperview()
-            })*/
+             UIView.animate(withDuration: 1, animations: {
+             self.maruImageView.alpha = 0
+             }, completion: { finished in
+             self.maruImageView.removeFromSuperview()
+             })*/
             showQuestion()
             questionNum += 1
-
+            questionNumLabel.text = String(questionNum)
+            if questionNum == 8{
+                questionNumLabel.textColor = UIColor.yellow
+            }
+            if questionNum == 9{
+                questionNumLabel.textColor = UIColor.yellow
+            }
+            if questionNum == 10{
+                questionNumLabel.textColor = UIColor.yellow
+            }
+            
+            
             
         }else{
             //不正解
             vibrate()
             /*
-            UIView.animate(withDuration: 1, animations: {
-                self.batsuImageView.alpha = 0
-            }, completion: { finished in
-                self.batsuImageView.removeFromSuperview()
-            })*/
+             UIView.animate(withDuration: 1, animations: {
+             self.batsuImageView.alpha = 0
+             }, completion: { finished in
+             self.batsuImageView.removeFromSuperview()
+             })*/
             
             
         }
-        if questionNum == 10{
+        if questionNum == 11{
             timer.invalidate()
             //textFieldで記入されたテキストを入れる
-            timerArray.append(Double(timerLabel.text!)!)
+            secondTimerArray.append(Double(timerLabel.text!)!)
             
             //キー値"array"で配列の保存
-            UserDefaults.standard.set(timerArray, forKey: "lastScore")
+            UserDefaults.standard.set(secondTimerArray, forKey: "secondlastScore")
             
-           
-//            print(timerArray)
-            self.performSegue(withIdentifier: "toThird", sender: nil)
+            
+            //            print(timerArray)
+            self.performSegue(withIdentifier: "toResult", sender: nil)
             
         }
         answer = 0
         answerLabel.text = "0"
-    }
-  //rankを計算する
-    func rankQuestion(){
-        
-        
     }
     
     
@@ -236,8 +245,8 @@ class ViewController: UIViewController {
         }
         answerLabel.text = String(answer)
         
-        }
-
+    }
+    
     @IBAction func eightButton(_ sender: Any) {
         if answerLabel.text == "0"{
             answer = 8
@@ -250,10 +259,10 @@ class ViewController: UIViewController {
         }
         answerLabel.text = String(answer)
     }
-
+    
     
     @IBAction func nineButton(_ sender: Any) {
-       
+        
         if answerLabel.text == "0"{
             answer = 9
         }
@@ -265,35 +274,33 @@ class ViewController: UIViewController {
         }
         answerLabel.text = String(answer)
         
-        }
+    }
     
     
     @IBAction func mainasuButton(_ sender: Any) {
         answerLabel.text = "-"
     }
     
-
     
-   
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showQuestion()
-//        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(UIMenuController.update), userInfo: nil, repeats: true)
-       
         
     }
     
-
+    
     @IBAction func startButton(_ sender: Any) {
         noteViewLabel.alpha=0.0
         noteTextViewLabel.alpha=0.0
         startButtonLabel.isHidden = true
-       timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(SecondViewController.update), userInfo: nil, repeats: true)
         
     }
     
-//    timer
+    //    timer
     @objc func update(){
         count = count + 0.1
         timerLabel.text = String(format: "%.1f", count)

@@ -8,9 +8,8 @@
 
 import UIKit
 
+
 class ResultViewController: UIViewController {
-    
-    
     
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var lastScoreLabel: UILabel!
@@ -20,13 +19,25 @@ class ResultViewController: UIViewController {
     @IBOutlet weak var lastScoreTextLabel: UILabel!
     
     
+    @IBOutlet weak var rankTextLabel: UILabel!
+    
     @IBOutlet weak var rankLabel: UILabel!
-    var timerArray = [Double]()
-    var highTimerArray = [Double]()
+    var firstTimerArray = [Double]()
+    var secondTimerArray = [Double]()
+    var thirdTimerArray = [Double]()
+    
+    var firstHighTimerArray = [Double]()
+    var secondHighTimerArray = [Double]()
+    var thirdHighTimerArray = [Double]()
+    
     var lastScore:Double = 0.0
-    var highScore:Double = 0.0
+    var firstHighScore:Double = 0.0
+    var secondHighScore:Double = 0.0
+    var thirdHighScore:Double = 0.0
     
     var rank:Double = 0
+    
+    var newHighScoreCount:Int=0
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -36,75 +47,125 @@ class ResultViewController: UIViewController {
         super.viewWillAppear(animated)
         
         //arrayというキー値で保存された、配列arrayを取り出す
-        if UserDefaults.standard.object(forKey: "lastScore") != nil{
-            timerArray = UserDefaults.standard.object(forKey: "lastScore") as! [Double]
-            if UserDefaults.standard.object(forKey: "highScore") != nil{
-                //highScoreあったら
-                highTimerArray = UserDefaults.standard.object(forKey: "highScore") as! [Double]
-                
-                lastScore = timerArray[0]
-                lastScoreTextLabel.text = String(lastScore)
-                
-                highScore = highTimerArray[0]
+        if UserDefaults.standard.object(forKey: "firstlastScore") != nil{
+            firstTimerArray = UserDefaults.standard.object(forKey: "firstlastScore") as! [Double]
+            if UserDefaults.standard.object(forKey: "firstCount") != nil{
+                UserDefaults.standard.removeObject(forKey: "firstCount")
+                rankTextLabel.text = "◯❓△ rank"
+                checkHighScore()
                 
                 
-                if highScore != 0.0{
-                    //2回目以降
-                    if highScore > lastScore{
-                        highScore = lastScore
-                    }
-                }else{
-                    //highScore=0 -> 最初
-                    highScore = lastScore
-                    
-                }
-                highScoreTextLabel.text = String(highScore)
-                
-                //textFieldで記入されたテキストを入れる
-                highTimerArray.append(Double(highScore))
-                
-                //キー値"array"で配列の保存
-                UserDefaults.standard.set(highTimerArray, forKey: "highScore")
-                
-                rankQuestion()
-                
-                
-            }else{
-                //highScoreなかったら
-                highScore = 0.0
-                
-                lastScore = timerArray[0]
-                lastScoreTextLabel.text = String(lastScore)
-                
-//                highScore = highTimerArray[0]
-                
-                
-                if highScore != 0.0{
-                    //2回目以降
-                    if highScore > lastScore{
-                        highScore = lastScore
-                    }
-                }else{
-                    //highScore=0 -> 最初
-                    highScore = lastScore
-                    
-                }
-                highScoreTextLabel.text = String(highScore)
-                
-                //textFieldで記入されたテキストを入れる
-                highTimerArray.append(Double(highScore))
-                
-                //キー値"array"で配列の保存
-                UserDefaults.standard.set(highTimerArray, forKey: "highScore")
-                
-                rankQuestion()
             }
+            
+        }
+        if UserDefaults.standard.object(forKey: "secondlastScore") != nil{
+            secondTimerArray = UserDefaults.standard.object(forKey: "secondlastScore") as! [Double]
+            rankTextLabel.text = "◯△❓□ rank"
+            checkHighScore()
+            
+        }
+        if UserDefaults.standard.object(forKey: "thirdlastScore") != nil{
+            thirdTimerArray = UserDefaults.standard.object(forKey: "thirdlastScore") as! [Double]
+            rankTextLabel.text = "◯△❓□♤ rank"
+            checkHighScore()
+            
         }
         //rankを計算する
         
     }
-    func rankQuestion(){
+    //highscoreあるかないか
+    func checkHighScore(){
+        if UserDefaults.standard.object(forKey: "highScore") != nil{
+//            firstHighScore = firstHighTimerArray[0]
+//            secondHighScore = secondHighTimerArray[0]
+//            thirdHighScore = thirdHighTimerArray[0]
+//            highScoreあったら
+            decideHighTime()
+            rankQuestion()
+            
+            
+        }else{
+            //highScoreなかったら
+            decideHighTime()
+
+            rankQuestion()
+        }
         
+    }
+    func decideHighTime(){
+        switch rankTextLabel.text {
+        case "◯❓△ rank":
+            firstHighTimerArray = UserDefaults.standard.object(forKey: "highScore") as! [Double]
+            lastScore = firstTimerArray[0]
+            if firstHighScore != 0.0{
+                //2回目以降
+                if firstHighScore > lastScore{
+                    firstHighScore = lastScore
+                }
+            }else{
+                //highScore=0 -> 最初
+                firstHighScore = lastScore
+                
+            }
+            highScoreTextLabel.text = String(firstHighScore)
+            //textFieldで記入されたテキストを入れる
+            firstHighTimerArray.append(Double(firstHighScore))
+            
+            //キー値"array"で配列の保存
+            UserDefaults.standard.set(firstHighTimerArray, forKey: "highScore")
+            
+        case "◯△❓□ rank":
+            secondHighTimerArray = UserDefaults.standard.object(forKey: "highScore") as! [Double]
+            
+            lastScore = secondTimerArray[0]
+            if secondHighScore != 0.0{
+                //2回目以降
+                if secondHighScore > lastScore{
+                    secondHighScore = lastScore
+                }
+            }else{
+                //highScore=0 -> 最初
+                secondHighScore = lastScore
+                
+            }
+            highScoreTextLabel.text = String(secondHighScore)
+            //textFieldで記入されたテキストを入れる
+            secondHighTimerArray.append(Double(secondHighScore))
+            
+            //キー値"array"で配列の保存
+            UserDefaults.standard.set(secondHighTimerArray, forKey: "highScore")
+            
+        case "◯△❓□♤ rank":
+            thirdHighTimerArray = UserDefaults.standard.object(forKey: "highScore") as! [Double]
+            
+            lastScore = thirdTimerArray[0]
+            if thirdHighScore != 0.0{
+                //2回目以降
+                if thirdHighScore > lastScore{
+                    thirdHighScore = lastScore
+                }
+            }else{
+                //highScore=0 -> 最初
+                thirdHighScore = lastScore
+                
+            }
+            highScoreTextLabel.text = String(thirdHighScore)
+            //textFieldで記入されたテキストを入れる
+            thirdHighTimerArray.append(Double(thirdHighScore))
+            
+            //キー値"array"で配列の保存
+            UserDefaults.standard.set(thirdHighTimerArray, forKey: "highScore")
+            
+        default:
+            break
+            
+        }
+        lastScoreTextLabel.text = String(lastScore)
+        
+        
+        
+    }
+    func rankQuestion(){
         rank = lastScore
         switch rank {
         case 0..<10:
@@ -137,36 +198,10 @@ class ResultViewController: UIViewController {
         case 60..<70:
             rankLabel.textColor = UIColor.magenta
             rankLabel.text = "D"
-        case 70..<80:
-            rankLabel.textColor = UIColor.magenta
-            rankLabel.text = "E"
-        case 90..<100:
-            rankLabel.textColor = UIColor.magenta
-            rankLabel.text = "F"
-        case 100..<110:
-            rankLabel.textColor = UIColor.cyan
-            rankLabel.text = "G"
-        case 110..<120:
-            rankLabel.textColor = UIColor.cyan
-            rankLabel.text = "H"
-        case 120..<130:
-            rankLabel.textColor = UIColor.cyan
-            rankLabel.text = "I"
-        case 130..<140:
-            rankLabel.textColor = UIColor.black
-            rankLabel.text = "J"
-        case 140..<150:
-            rankLabel.textColor = UIColor.black
-            rankLabel.text = "K"
-        case 1500..<160:
-            rankLabel.textColor = UIColor.black
-            rankLabel.text = "L"
-            
-            
-    
+        
         default:
             rankLabel.textColor = UIColor.black
-            rankLabel.text = "Let a little harder"
+            rankLabel.text = "More harder"
             
         }
         
@@ -183,7 +218,7 @@ class ResultViewController: UIViewController {
     //share機能
     @IBAction func share(_ sender: Any) {
         // 共有する項目
-        let shareText = Double(highScore)
+        let shareText = Double("Good")
         let shareWebsite = NSURL(string: "http://hachimantai.spartacamp.jp/")!
         
         

@@ -17,19 +17,17 @@ class StartViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-//    @IBAction func goButton(_ sender: Any) {
-//        timer = Timer.scheduledTimer(timeInterval: 0.01, target: self, selector: #selector(ViewController.update), userInfo: nil, repeats: true)
-        
-//    }
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func secondDigitButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "toSecondDigit", sender: nil)
     }
-    */
-
+    
+    @IBAction func thirdDigitButton(_ sender: Any) {
+    
+     self.performSegue(withIdentifier: "toThirdDigit", sender: nil)
+    }
+    
+    @IBAction func fourthDigitButton(_ sender: Any) {
+        self.performSegue(withIdentifier: "toFourthDigit", sender: nil)
+    }
+    
 }
