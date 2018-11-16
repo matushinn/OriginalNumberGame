@@ -42,6 +42,8 @@ class FirstViewController: UIViewController {
     //ResultViewController
     var firstCount:Int? = nil
     var checkFirstResultArray = [Int]()
+    var min=1
+    var range=8
     @IBOutlet weak var noteTextViewLabel: UITextView!
     
     @IBOutlet weak var noteViewLabel: UIView!
@@ -54,8 +56,9 @@ class FirstViewController: UIViewController {
     
 //    問題を出す関数
     func showQuestion(){
-        leftNumber=Int(arc4random_uniform(10))
-        rightNumber=Int(arc4random_uniform(10))
+        //1~9までの数字
+        leftNumber=Int(arc4random_uniform(UInt32(range)+UInt32(min)))
+        rightNumber=Int(arc4random_uniform(UInt32(range)+UInt32(min)))
         
         leftLabel.text = String(leftNumber)
         rightLabel.text = String(rightNumber)
@@ -107,15 +110,15 @@ class FirstViewController: UIViewController {
             firstCount = 1
             //textFieldで記入されたテキストを入れる
             firstTimerArray.append(Double(timerLabel.text!)!)
-            checkFirstResultArray.append(firstCount!)
+//            checkFirstResultArray.append(firstCount!)
             
             //キー値"array"で配列の保存
-            UserDefaults.standard.set(firstTimerArray, forKey: "firstlastScore")
-            UserDefaults.standard.set(checkFirstResultArray, forKey: "firstCount")
+            UserDefaults.standard.set(firstTimerArray, forKey: "lastScore")
+//            UserDefaults.standard.set(checkFirstResultArray, forKey: "firstCount")
             
            
 //            print(timerArray)
-            self.performSegue(withIdentifier: "toResult", sender: nil)
+            self.performSegue(withIdentifier: "toFirstResult", sender: nil)
             
         }
         answer = 0

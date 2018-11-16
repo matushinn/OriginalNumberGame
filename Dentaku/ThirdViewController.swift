@@ -40,6 +40,9 @@ class ThirdViewController: UIViewController {
     var thirdTimerArray = [Double]()
     var count:Double = 0.0
     
+    var min = 10
+    var range = 89
+    
     @IBOutlet weak var noteTextViewLabel: UITextView!
     
     @IBOutlet weak var noteViewLabel: UIView!
@@ -52,8 +55,8 @@ class ThirdViewController: UIViewController {
     
     //    問題を出す関数
     func showQuestion(){
-        leftNumber=Int(arc4random_uniform(100))
-        rightNumber=Int(arc4random_uniform(100))
+        leftNumber=Int(arc4random_uniform(UInt32(range) + UInt32(min)))
+        rightNumber=Int(arc4random_uniform(UInt32(range) + UInt32(min)))
         
         leftLabel.text = String(leftNumber)
         rightLabel.text = String(rightNumber)
@@ -106,11 +109,11 @@ class ThirdViewController: UIViewController {
             thirdTimerArray.append(Double(timerLabel.text!)!)
             
             //キー値"array"で配列の保存
-            UserDefaults.standard.set(thirdTimerArray, forKey: "thirdlastScore")
+            UserDefaults.standard.set(thirdTimerArray, forKey: "lastScore")
             
             
             //            print(timerArray)
-            self.performSegue(withIdentifier: "toResult", sender: nil)
+            self.performSegue(withIdentifier: "toThirdResult", sender: nil)
             
         }
         answer = 0

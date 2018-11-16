@@ -39,6 +39,10 @@ class SecondViewController: UIViewController {
     //  timer保存する配列
     var secondTimerArray = [Double]()
     var count:Double = 0.0
+    var rmin=1
+    var lmin=10
+    var rrange=8
+    var lrange=89
     
     @IBOutlet weak var noteTextViewLabel: UITextView!
     
@@ -52,8 +56,8 @@ class SecondViewController: UIViewController {
     
     //    問題を出す関数
     func showQuestion(){
-        leftNumber=Int(arc4random_uniform(100))
-        rightNumber=Int(arc4random_uniform(10))
+        leftNumber=Int(arc4random_uniform(UInt32(lrange)+UInt32(lmin)))
+        rightNumber=Int(arc4random_uniform(UInt32(rrange)+UInt32(rmin)))
         
         leftLabel.text = String(leftNumber)
         rightLabel.text = String(rightNumber)
@@ -106,11 +110,11 @@ class SecondViewController: UIViewController {
             secondTimerArray.append(Double(timerLabel.text!)!)
             
             //キー値"array"で配列の保存
-            UserDefaults.standard.set(secondTimerArray, forKey: "secondlastScore")
+            UserDefaults.standard.set(secondTimerArray, forKey: "lastScore")
             
             
             //            print(timerArray)
-            self.performSegue(withIdentifier: "toResult", sender: nil)
+            self.performSegue(withIdentifier: "toSecondResult", sender: nil)
             
         }
         answer = 0
