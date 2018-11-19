@@ -7,27 +7,42 @@
 //
 
 import UIKit
+import AVFoundation
 
 class StartViewController: UIViewController {
     var timer:Timer!
+     var audioPlayer:AVAudioPlayer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        do {
+            let filePath = Bundle.main.path(forResource: "bgm",ofType: "mp3")
+            let musicPath = URL(fileURLWithPath: filePath!)
+            audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+            
+        } catch {
+            print("error")
+        }
+        audioPlayer.play()
+        
+        
     }
     
     @IBAction func secondDigitButton(_ sender: Any) {
         self.performSegue(withIdentifier: "toSecondDigit", sender: nil)
+        audioPlayer.stop()
     }
     
     @IBAction func thirdDigitButton(_ sender: Any) {
     
      self.performSegue(withIdentifier: "toThirdDigit", sender: nil)
+        audioPlayer.stop()
     }
     
     @IBAction func fourthDigitButton(_ sender: Any) {
         self.performSegue(withIdentifier: "toFourthDigit", sender: nil)
+        audioPlayer.stop()
     }
     
 }

@@ -302,6 +302,7 @@
                                     <color key="titleColor" red="1" green="0.15142011480000001" blue="0.053470138549999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
+                                    <action selector="cancelButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Fjc-OC-nTj"/>
                                     <segue destination="InL-9t-DfM" kind="presentation" id="fgh-Ce-xDn"/>
                                 </connections>
                             </button>
@@ -313,8 +314,16 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="maru" translatesAutoresizingMaskIntoConstraints="NO" id="mmu-0G-obg">
+                                <rect key="frame" x="78" y="79" width="233" height="233"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="batu" translatesAutoresizingMaskIntoConstraints="NO" id="ipz-f4-MmO">
+                                <rect key="frame" x="78" y="79" width="233" height="233"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dfL-5W-DW6">
-                                <rect key="frame" x="1" y="0.0" width="376" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="376" height="667"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" alpha="0.90000000000000002" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tBc-lX-eIT">
@@ -351,8 +360,10 @@
                     </view>
                     <connections>
                         <outlet property="answerLabel" destination="r85-po-Ilb" id="wee-IH-EZX"/>
+                        <outlet property="batuImageView" destination="ipz-f4-MmO" id="X0R-kd-dUq"/>
                         <outlet property="calcLabel" destination="dK7-Bg-JSY" id="eoj-W7-zvE"/>
                         <outlet property="leftLabel" destination="1KB-h7-Ac3" id="iii-iU-jee"/>
+                        <outlet property="maruImageView" destination="mmu-0G-obg" id="RLx-Sb-1DV"/>
                         <outlet property="noteTextViewLabel" destination="ZAH-Xh-gkF" id="iFW-JU-3vB"/>
                         <outlet property="noteViewLabel" destination="dfL-5W-DW6" id="wgI-Z7-6c1"/>
                         <outlet property="questionNumLabel" destination="HI4-Yj-4Nq" id="VsV-vB-6wx"/>
@@ -364,7 +375,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="97" y="-787"/>
+            <point key="canvasLocation" x="96.799999999999997" y="-787.55622188905556"/>
         </scene>
         <!--First Result View Controller-->
         <scene sceneID="yxd-G5-qYh">
@@ -687,6 +698,7 @@
                                     <color key="titleColor" red="1" green="0.15142011480000001" blue="0.053470138549999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
+                                    <action selector="cancelButton:" destination="T39-f2-yVi" eventType="touchUpInside" id="iQs-k6-xv0"/>
                                     <segue destination="InL-9t-DfM" kind="show" id="Foh-iV-TxL"/>
                                 </connections>
                             </button>
@@ -952,6 +964,7 @@
                                     <color key="titleColor" red="1" green="0.15142011480000001" blue="0.053470138549999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                                 <connections>
+                                    <action selector="cancelButton:" destination="rPf-iB-3Xm" eventType="touchUpInside" id="om6-OI-aJ9"/>
                                     <segue destination="InL-9t-DfM" kind="show" id="mV2-X9-xGY"/>
                                 </connections>
                             </button>
@@ -1252,11 +1265,13 @@
     </scenes>
     <resources>
         <image name="Twitter_Bird.svg" width="140" height="114"/>
+        <image name="batu" width="2000" height="2000"/>
         <image name="facebook" width="150" height="150"/>
         <image name="haiiro3" width="1024" height="768"/>
+        <image name="maru" width="386" height="387"/>
         <image name="suuzi1" width="400" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="mV2-X9-xGY"/>
+        <segue reference="Foh-iV-TxL"/>
     </inferredMetricsTieBreakers>
 </document>

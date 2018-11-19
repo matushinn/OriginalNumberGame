@@ -8,8 +8,10 @@
 
 import UIKit
 import Social
+import AVFoundation
 
 class FirstResultViewController: UIViewController {
+    var audioPlayer:AVAudioPlayer!
     @IBOutlet weak var highScoreLabel: UILabel!
     @IBOutlet weak var lastScoreLabel: UILabel!
     
@@ -28,7 +30,16 @@ class FirstResultViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        do {
+            let filePath = Bundle.main.path(forResource: "goal",ofType: "mp3")
+            let musicPath = URL(fileURLWithPath: filePath!)
+            audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+            
+        } catch {
+            print("error")
+        }
+        audioPlayer.play()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

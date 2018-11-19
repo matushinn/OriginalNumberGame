@@ -8,9 +8,12 @@
 
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 class FirstViewController: UIViewController {
-   
+    var audioPlayer:AVAudioPlayer!
+    
+    
     @IBOutlet weak var leftLabel: UILabel!
     
     
@@ -20,10 +23,14 @@ class FirstViewController: UIViewController {
     @IBOutlet weak var calcLabel: UILabel!
     
     @IBOutlet weak var answerLabel: UILabel!
-   
+    
     
     @IBOutlet weak var startButtonLabel: UIButton!
     @IBOutlet weak var timerLabel: UILabel!
+    
+    @IBOutlet weak var maruImageView: UIImageView!
+    
+    @IBOutlet weak var batuImageView: UIImageView!
     var calc:[String] = ["➕","➖","✖️"]
     
     var questionNum :Int = 1
@@ -36,11 +43,9 @@ class FirstViewController: UIViewController {
     var answer:Int = 0
     
     var timer:Timer!
-//  timer保存する配列
+    //  timer保存する配列
     var firstTimerArray = [Double]()
     var count:Double = 0.0
-    //ResultViewController
-    var firstCount:Int? = nil
     var checkFirstResultArray = [Int]()
     var min=1
     var range=8
@@ -50,11 +55,17 @@ class FirstViewController: UIViewController {
     
     @IBOutlet weak var questionNumLabel: UILabel!
     func vibrate() {
-        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+    }
+    // アラートを表示する関数
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let close = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+        alert.addAction(close)
+        present(alert, animated: true, completion: nil)
     }
     
-    
-//    問題を出す関数
+    //    問題を出す関数
     func showQuestion(){
         //1~9までの数字
         leftNumber=Int(arc4random_uniform(UInt32(range)+UInt32(min)))
@@ -72,12 +83,19 @@ class FirstViewController: UIViewController {
         if result == answer{
             //正解
             vibrate()
+            
+            //audioPlayer.pause()
+            
+             showAlert(message: "⭕️")
+            
+            
+            
             /*
-            UIView.animate(withDuration: 1, animations: {
-                self.maruImageView.alpha = 0
-            }, completion: { finished in
-                self.maruImageView.removeFromSuperview()
-            })*/
+             UIView.animate(withDuration: 0.3, animations: {
+             self.maruImageView.alpha = 0
+             }, completion: { finished in
+             self.maruImageView.removeFromSuperview()
+ */
             showQuestion()
             questionNum += 1
             questionNumLabel.text = String(questionNum)
@@ -90,41 +108,49 @@ class FirstViewController: UIViewController {
             if questionNum == 10{
                 questionNumLabel.textColor = UIColor.yellow
             }
+            if questionNum == 11{
+                timer.invalidate()
+                //textFieldで記入されたテキストを入れる
+                firstTimerArray.append(Double(timerLabel.text!)!)
+                //            checkFirstResultArray.append(firstCount!)
+                
+                //キー値"array"で配列の保存
+                UserDefaults.standard.set(firstTimerArray, forKey: "lastScore")
+                //            UserDefaults.standard.set(checkFirstResultArray, forKey: "firstCount")
+                
+                
+                //            print(timerArray)
+                self.performSegue(withIdentifier: "toFirstResult", sender: nil)
+                
+                audioPlayer.stop()
+                
+                
+                
+            }
             
-
             
         }else{
             //不正解
             vibrate()
+            //audioPlayer.pause()
+            
+            
             /*
-            UIView.animate(withDuration: 1, animations: {
-                self.batsuImageView.alpha = 0
-            }, completion: { finished in
-                self.batsuImageView.removeFromSuperview()
-            })*/
+             UIView.animate(withDuration: 0.3, animations: {
+                self.batuImageView.alpha = 0
+             }, completion: { finished in
+             self.batuImageView.removeFromSuperview()
+             })
+ */
             
             
         }
-        if questionNum == 11{
-            timer.invalidate()
-            firstCount = 1
-            //textFieldで記入されたテキストを入れる
-            firstTimerArray.append(Double(timerLabel.text!)!)
-//            checkFirstResultArray.append(firstCount!)
-            
-            //キー値"array"で配列の保存
-            UserDefaults.standard.set(firstTimerArray, forKey: "lastScore")
-//            UserDefaults.standard.set(checkFirstResultArray, forKey: "firstCount")
-            
-           
-//            print(timerArray)
-            self.performSegue(withIdentifier: "toFirstResult", sender: nil)
-            
-        }
+        
         answer = 0
         answerLabel.text = "0"
+        
     }
-  
+    
     
     
     
@@ -196,6 +222,7 @@ class FirstViewController: UIViewController {
         }
         answerLabel.text = String(answer)
         
+        
     }
     @IBAction func fourButton(_ sender: Any) {
         if answerLabel.text == "0"{
@@ -253,8 +280,8 @@ class FirstViewController: UIViewController {
         }
         answerLabel.text = String(answer)
         
-        }
-
+    }
+    
     @IBAction func eightButton(_ sender: Any) {
         if answerLabel.text == "0"{
             answer = 8
@@ -267,10 +294,10 @@ class FirstViewController: UIViewController {
         }
         answerLabel.text = String(answer)
     }
-
+    
     
     @IBAction func nineButton(_ sender: Any) {
-       
+        
         if answerLabel.text == "0"{
             answer = 9
         }
@@ -282,37 +309,89 @@ class FirstViewController: UIViewController {
         }
         answerLabel.text = String(answer)
         
-        }
+    }
     
     
     @IBAction func mainasuButton(_ sender: Any) {
         answerLabel.text = "-"
     }
     
-
     
-   
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         showQuestion()
-      
+        
+        do {
+            let filePath = Bundle.main.path(forResource: "sentou",ofType: "mp3")
+            let musicPath = URL(fileURLWithPath: filePath!)
+            audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+            
+        } catch {
+            print("error")
+        }
+        
+        
+        
+        
     }
     
-
+    
     @IBAction func startButton(_ sender: Any) {
         noteViewLabel.alpha=0.0
         noteTextViewLabel.alpha=0.0
         startButtonLabel.isHidden = true
-       timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(FirstViewController.update), userInfo: nil, repeats: true)
+        startTimer()
+        /*
+        // mp3音声(SOUND.mp3)の再生
+        playSound(name: "sentou")
         
+        */
+        audioPlayer.play()
     }
     
-//    timer
+    @IBAction func cancelButton(_ sender: Any) {
+        audioPlayer.stop()
+    }
+    
+    func startTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(FirstViewController.update), userInfo: nil, repeats: true)
+    }
+    
+    //    timer
     @objc func update(){
         count = count + 0.1
         timerLabel.text = String(format: "%.1f", count)
         
     }
-    
 }
+/*
+extension FirstViewController: AVAudioPlayerDelegate {
+    func playSound(name: String) {
+        guard let path = Bundle.main.path(forResource: name, ofType: "mp3") else {
+            print("音源ファイルが見つかりません")
+            return
+        }
+        
+        do {
+            // AVAudioPlayerのインスタンス化
+            audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
+            
+            // AVAudioPlayerのデリゲートをセット
+            audioPlayer.delegate = self
+            
+            // 音声の再生
+            audioPlayer.play()
+            
+            
+            
+            
+            
+            
+        } catch {
+        }
+    }
+}
+*/

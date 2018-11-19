@@ -8,8 +8,10 @@
 
 import UIKit
 import AudioToolbox
+import AVFoundation
 
 class SecondViewController: UIViewController {
+    var audioPlayer:AVAudioPlayer!
     
     @IBOutlet weak var leftLabel: UILabel!
     
@@ -52,7 +54,13 @@ class SecondViewController: UIViewController {
     func vibrate() {
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
-    
+    // アラートを表示する関数
+    func showAlert(message: String) {
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
+        let close = UIAlertAction(title: "閉じる", style: .cancel, handler: nil)
+        alert.addAction(close)
+        present(alert, animated: true, completion: nil)
+    }
     
     //    問題を出す関数
     func showQuestion(){
@@ -90,7 +98,7 @@ class SecondViewController: UIViewController {
                 questionNumLabel.textColor = UIColor.yellow
             }
             
-            
+            showAlert(message: "⭕️")
             
         }else{
             //不正解
@@ -116,6 +124,7 @@ class SecondViewController: UIViewController {
             //            print(timerArray)
             self.performSegue(withIdentifier: "toSecondResult", sender: nil)
             
+            audioPlayer.stop()
         }
         answer = 0
         answerLabel.text = "0"
@@ -292,6 +301,23 @@ class SecondViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showQuestion()
+        do {
+            let filePath = Bundle.main.path(forResource: "sentou",ofType: "mp3")
+            let musicPath = URL(fileURLWithPath: filePath!)
+            audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+            /*
+             let maruFilePath = Bundle.main.path(forResource: "maru",ofType: "mp3")
+             let maruMusicPath = URL(fileURLWithPath: filePath!)
+             maruAudioplayer = try AVAudioPlayer(contentsOf: musicPath)
+             
+             let batuFilePath = Bundle.main.path(forResource: "maru",ofType: "mp3")
+             let batuMusicPath = URL(fileURLWithPath: filePath!)
+             batuAudioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+             */
+        } catch {
+            print("error")
+        }
+        
         
     }
     
@@ -302,6 +328,10 @@ class SecondViewController: UIViewController {
         startButtonLabel.isHidden = true
         timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(SecondViewController.update), userInfo: nil, repeats: true)
         
+    }
+    
+    @IBAction func cancelButton(_ sender: Any) {
+        audioPlayer.stop()
     }
     
     //    timer
