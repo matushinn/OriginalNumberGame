@@ -12,6 +12,9 @@ import AVFoundation
 class StartViewController: UIViewController {
     var timer:Timer!
      var audioPlayer:AVAudioPlayer!
+   
+    
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,28 +24,43 @@ class StartViewController: UIViewController {
             let musicPath = URL(fileURLWithPath: filePath!)
             audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
             
+            
         } catch {
             print("error")
         }
+        
+            //audioPlayer.play()
+        
+        
+        
+    }
+    override func viewWillAppear(_ animated: Bool) {
         audioPlayer.play()
-        
-        
     }
     
     @IBAction func secondDigitButton(_ sender: Any) {
         self.performSegue(withIdentifier: "toSecondDigit", sender: nil)
-        audioPlayer.stop()
+       audioPlayer.stop()
+        //count = 1
+        
+        
     }
     
     @IBAction func thirdDigitButton(_ sender: Any) {
     
      self.performSegue(withIdentifier: "toThirdDigit", sender: nil)
         audioPlayer.stop()
+        //count = 1
+        
+        
     }
     
     @IBAction func fourthDigitButton(_ sender: Any) {
         self.performSegue(withIdentifier: "toFourthDigit", sender: nil)
         audioPlayer.stop()
+        //count = 1
+        
+        
     }
     
 }

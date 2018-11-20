@@ -24,8 +24,10 @@
 		3770B95F21A26542008288CB /* batu.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3770B95E21A26542008288CB /* batu.mp3 */; };
 		3770B96121A270A5008288CB /* goal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96021A270A5008288CB /* goal.mp3 */; };
 		3770B96321A270B4008288CB /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96221A270B4008288CB /* bgm.mp3 */; };
-		3770B96921A27832008288CB /* Number?Number1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96821A27832008288CB /* Number?Number1.jpg */; };
-		3770B96B21A278E5008288CB /* Number?Number3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96A21A278E5008288CB /* Number?Number3.jpg */; };
+		3770B96D21A394E2008288CB /* go.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96C21A394E2008288CB /* go.mp3 */; };
+		3770B96F21A3A3D0008288CB /* Number120.png in Resources */ = {isa = PBXBuildFile; fileRef = 3770B96E21A3A3CF008288CB /* Number120.png */; };
+		3770B97121A3A3D7008288CB /* Number180.png in Resources */ = {isa = PBXBuildFile; fileRef = 3770B97021A3A3D7008288CB /* Number180.png */; };
+		3770B97321A3B29D008288CB /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3770B97221A3B29D008288CB /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,8 +50,10 @@
 		3770B95E21A26542008288CB /* batu.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = batu.mp3; path = ../../../../Downloads/batu.mp3; sourceTree = "<group>"; };
 		3770B96021A270A5008288CB /* goal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = goal.mp3; path = "../../../../Downloads/3DMaze20171009 (1)/Assets/Sounds/goal.mp3"; sourceTree = "<group>"; };
 		3770B96221A270B4008288CB /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bgm.mp3; path = "../../../../Downloads/3DMaze20171009 (1)/Assets/Sounds/bgm.mp3"; sourceTree = "<group>"; };
-		3770B96821A27832008288CB /* Number?Number1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Number?Number1.jpg"; path = "../../../../Downloads/Number?Number1.jpg"; sourceTree = "<group>"; };
-		3770B96A21A278E5008288CB /* Number?Number3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "Number?Number3.jpg"; path = "../../../../Downloads/Number?Number3.jpg"; sourceTree = "<group>"; };
+		3770B96C21A394E2008288CB /* go.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = go.mp3; path = ../../../../Downloads/go.mp3; sourceTree = "<group>"; };
+		3770B96E21A3A3CF008288CB /* Number120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Number120.png; path = ../../../../Desktop/Number120.png; sourceTree = "<group>"; };
+		3770B97021A3A3D7008288CB /* Number180.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Number180.png; path = ../../../../Desktop/Number180.png; sourceTree = "<group>"; };
+		3770B97221A3B29D008288CB /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +61,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3770B97321A3B29D008288CB /* AudioToolbox.framework in Frameworks */,
 				37127C85219E5B11002DBAEA /* Social.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +72,7 @@
 		37127C83219E5B11002DBAEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3770B97221A3B29D008288CB /* AudioToolbox.framework */,
 				37127C84219E5B11002DBAEA /* Social.framework */,
 			);
 			name = Frameworks;
@@ -92,25 +98,26 @@
 		375198AF2185496F00C02861 /* Dentaku */ = {
 			isa = PBXGroup;
 			children = (
-				37127C81219E4FFA002DBAEA /* ThirdResultViewController.swift */,
-				375198B02185496F00C02861 /* AppDelegate.swift */,
 				3716FB8F2197A0AC00BE2923 /* StartViewController.swift */,
 				375198B22185496F00C02861 /* FirstViewController.swift */,
-				3770B95C21A26538008288CB /* maru.mp3 */,
+				37127C7F219E4F6C002DBAEA /* FirstResultViewController.swift */,
+				376972A4219A5FEA00329A7F /* SecondViewController.swift */,
+				371F32E321944F87008B38A4 /* SecondResultViewController.swift */,
+				376972A6219A5FFC00329A7F /* ThirdViewController.swift */,
+				37127C81219E4FFA002DBAEA /* ThirdResultViewController.swift */,
+				375198B02185496F00C02861 /* AppDelegate.swift */,
+				375198B42185496F00C02861 /* Main.storyboard */,
 				3770B95E21A26542008288CB /* batu.mp3 */,
+				3770B95C21A26538008288CB /* maru.mp3 */,
 				37152C0421A25EB4002756B5 /* sentou.mp3 */,
 				3770B96021A270A5008288CB /* goal.mp3 */,
+				3770B97021A3A3D7008288CB /* Number180.png */,
 				3770B96221A270B4008288CB /* bgm.mp3 */,
-				3770B96A21A278E5008288CB /* Number?Number3.jpg */,
-				3770B96821A27832008288CB /* Number?Number1.jpg */,
-				375198B42185496F00C02861 /* Main.storyboard */,
+				3770B96C21A394E2008288CB /* go.mp3 */,
+				3770B96E21A3A3CF008288CB /* Number120.png */,
 				375198B72185497000C02861 /* Assets.xcassets */,
 				375198B92185497000C02861 /* LaunchScreen.storyboard */,
 				375198BC2185497000C02861 /* Info.plist */,
-				371F32E321944F87008B38A4 /* SecondResultViewController.swift */,
-				376972A4219A5FEA00329A7F /* SecondViewController.swift */,
-				376972A6219A5FFC00329A7F /* ThirdViewController.swift */,
-				37127C7F219E4F6C002DBAEA /* FirstResultViewController.swift */,
 			);
 			path = Dentaku;
 			sourceTree = "<group>";
@@ -174,15 +181,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				3770B96121A270A5008288CB /* goal.mp3 in Resources */,
+				3770B97121A3A3D7008288CB /* Number180.png in Resources */,
 				375198BB2185497000C02861 /* LaunchScreen.storyboard in Resources */,
 				37152C0521A25EB4002756B5 /* sentou.mp3 in Resources */,
 				3770B96321A270B4008288CB /* bgm.mp3 in Resources */,
 				375198B82185497000C02861 /* Assets.xcassets in Resources */,
 				3770B95F21A26542008288CB /* batu.mp3 in Resources */,
+				3770B96D21A394E2008288CB /* go.mp3 in Resources */,
 				3770B95D21A26539008288CB /* maru.mp3 in Resources */,
+				3770B96F21A3A3D0008288CB /* Number120.png in Resources */,
 				375198B62185496F00C02861 /* Main.storyboard in Resources */,
-				3770B96921A27832008288CB /* Number?Number1.jpg in Resources */,
-				3770B96B21A278E5008288CB /* Number?Number3.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

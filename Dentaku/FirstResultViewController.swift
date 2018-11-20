@@ -23,6 +23,7 @@ class FirstResultViewController: UIViewController {
     @IBOutlet weak var rankLabel: UILabel!
     var timerArray = [Double]()
     var highTimerArray = [Double]()
+    var firstQuestionNumArray = [Int]()
     var lastScore:Double = 0.0
     var highScore:Double = 0.0
     
@@ -96,48 +97,58 @@ class FirstResultViewController: UIViewController {
         
 
     func rankQuestion(){
-        rank = lastScore
-        switch rank {
-        case 0..<10:
-            rankLabel.textColor = UIColor.blue
-            rankLabel.text = "Super"
-        case 10..<15:
-            rankLabel.textColor = UIColor.purple
-            rankLabel.text = "Greate!"
-        case 15..<18:
-            rankLabel.textColor = UIColor.orange
-            rankLabel.text = "Good!"
-        case 18..<20:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "SS"
-        case 20..<23:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "S"
-        case 23..<25:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "A"
-        case 25..<28:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "B"
-        case 28..<30:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "C"
-        case 30..<33:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "D"
-        case 33..<35:
-            rankLabel.textColor = UIColor.magenta
-            rankLabel.text = "E"
-            
-        default:
-            rankLabel.textColor = UIColor.black
-            rankLabel.text = "More harder"
-            
+        if UserDefaults.standard.object(forKey: "firstQuestionsNum") != nil{
+            firstQuestionNumArray = UserDefaults.standard.object(forKey: "firstQuestionsNum") as! [Int]
+            rank = lastScore/Double(firstQuestionNumArray[0])
+            switch rank {
+            case 0..<1.0:
+                rankLabel.textColor = UIColor.blue
+                rankLabel.text = "Super"
+            case 1.0..<1.5:
+                rankLabel.textColor = UIColor.purple
+                rankLabel.text = "Greate!"
+            case 1.5..<1.8:
+                rankLabel.textColor = UIColor.orange
+                rankLabel.text = "Good!"
+            case 1.8..<2.0:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "SS"
+            case 2.0..<2.3:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "S"
+            case 2.3..<2.5:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "A"
+            case 2.5..<2.8:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "B"
+            case 2.8..<3.0:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "C"
+            case 3.0..<3.3:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "D"
+            case 3.3..<3.5:
+                rankLabel.textColor = UIColor.magenta
+                rankLabel.text = "E"
+                
+            default:
+                rankLabel.textColor = UIColor.black
+                rankLabel.text = "Z"
+                
+            }
         }
+        UserDefaults.standard.removeObject(forKey: "firstQuestionsNum")
+        
+        /*    問題と解答を削除したので、キーが"questions"のオブジェクトの値がnilになる
+         *  -> 読み込まれたときのエラーを回避するために値に空の配列を入れておく
+         */
+        UserDefaults.standard.set([], forKey: "firstQuestionsNum")
     }
     
     @IBAction func backButton(_ sender: Any) {
          self.presentingViewController?.presentingViewController?.dismiss(animated: true, completion: nil)
+        
     }
     @IBAction func TweetButton(sender: UIButton) {
         

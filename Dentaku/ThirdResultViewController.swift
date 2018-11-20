@@ -22,8 +22,10 @@ class ThirdResultViewController: UIViewController {
     
     
     @IBOutlet weak var rankLabel: UILabel!
+    
     var timerArray = [Double]()
     var highTimerArray = [Double]()
+    var thirdQuestionNumArray = [Int]()
     var lastScore:Double = 0.0
     var highScore:Double = 0.0
     
@@ -35,6 +37,7 @@ class ThirdResultViewController: UIViewController {
             let filePath = Bundle.main.path(forResource: "goal",ofType: "mp3")
             let musicPath = URL(fileURLWithPath: filePath!)
             audioPlayer = try AVAudioPlayer(contentsOf: musicPath)
+        
             
         } catch {
             print("error")
@@ -96,44 +99,53 @@ class ThirdResultViewController: UIViewController {
     
     
     func rankQuestion(){
-        rank = lastScore
-        switch rank {
-        case 0..<20:
-            rankLabel.textColor = UIColor.blue
-            rankLabel.text = "Super"
-        case 20..<30:
-            rankLabel.textColor = UIColor.purple
-            rankLabel.text = "Greate!"
-        case 30..<40:
-            rankLabel.textColor = UIColor.orange
-            rankLabel.text = "Good!"
-        case 40..<50:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "SS"
-        case 50..<60:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "S"
-        case 60..<70:
-            rankLabel.textColor = UIColor.yellow
-            rankLabel.text = "A"
-        case 70..<80:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "B"
-        case 80..<90:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "C"
-        case 100..<110:
-            rankLabel.textColor = UIColor.red
-            rankLabel.text = "D"
-        case 110..<120:
-            rankLabel.textColor = UIColor.magenta
-            rankLabel.text = "E"
+        if UserDefaults.standard.object(forKey: "thirdQuestionsNum") != nil{
+            thirdQuestionNumArray = UserDefaults.standard.object(forKey: "thirdQuestionsNum") as! [Int]
+            rank = lastScore/Double(thirdQuestionNumArray[0])
             
-        default:
-            rankLabel.textColor = UIColor.black
-            rankLabel.text = "More harder"
-            
+            switch rank {
+            case 0..<2.0:
+                rankLabel.textColor = UIColor.blue
+                rankLabel.text = "Super"
+            case 2.0..<3.0:
+                rankLabel.textColor = UIColor.purple
+                rankLabel.text = "Greate!"
+            case 3.0..<4.0:
+                rankLabel.textColor = UIColor.orange
+                rankLabel.text = "Good!"
+            case 4.0..<5.0:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "SS"
+            case 5.0..<6.0:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "S"
+            case 6.0..<7.0:
+                rankLabel.textColor = UIColor.yellow
+                rankLabel.text = "A"
+            case 7.0..<8.0:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "B"
+            case 8.0..<9.0:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "C"
+            case 10..<11:
+                rankLabel.textColor = UIColor.red
+                rankLabel.text = "D"
+            case 11..<12:
+                rankLabel.textColor = UIColor.magenta
+                rankLabel.text = "E"
+                
+            default:
+                rankLabel.textColor = UIColor.black
+                rankLabel.text = "Z"
+            }
         }
+        UserDefaults.standard.removeObject(forKey: "thirdQuestionsNum")
+        
+        /*    問題と解答を削除したので、キーが"questions"のオブジェクトの値がnilになる
+         *  -> 読み込まれたときのエラーを回避するために値に空の配列を入れておく
+         */
+        UserDefaults.standard.set([], forKey: "thirdQuestionsNum")
     }
     
     @IBAction func backButton(_ sender: Any) {
